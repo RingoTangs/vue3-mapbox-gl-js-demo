@@ -16,6 +16,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "mapbox-gl": "^2.15.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
