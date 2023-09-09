@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.4.2",
+    "gsap": "^3.12.2",
     "mapbox-gl": "^2.15.0",
     "vue": "^3.3.4"
   },
