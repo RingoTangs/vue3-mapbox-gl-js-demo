@@ -16,6 +16,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.4.2",
     "mapbox-gl": "^2.15.0",
     "vue": "^3.3.4"
   },
@@ -23,6 +24,7 @@
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@types/mapbox-gl": "^2.7.13",
+    "@types/mapbox__mapbox-gl-draw": "^1.4.0",
     "@types/node": "^20.5.9",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
