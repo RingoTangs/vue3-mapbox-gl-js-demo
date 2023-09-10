@@ -25,17 +25,21 @@ function mapInit(container: HTMLElement | string) {
     return map
 }
 
-function useMapbox() {
+function useMapbox(isInit = true) {
     const container = document.createElement('div')
     container.classList.add('mapbox-container')
     container.style.width = '100%'
     container.style.height = '100%'
-    const map = new mapboxgl.Map({
-        container,
+    const defaultOption = {
         style: 'mapbox://styles/mapbox/streets-v12', // style URL
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 1, // starting zoom
-    })
+    }
+    const map = new mapboxgl.Map(
+        (isInit
+            ? { container, ...defaultOption }
+            : { container }) as mapboxgl.MapboxOptions
+    )
     // map.getCanvas().style.width = document.body.clientWidth + 'px'
     // map.getCanvas().style.height = document.body.clientHeight + 'px'
 
