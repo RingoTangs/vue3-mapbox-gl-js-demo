@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMapbox } from '@/mapbox'
 import { ref, onMounted } from 'vue'
+import { useMapbox } from '@/mapbox'
 
 defineOptions({ name: 'MyControl' })
 
