@@ -6,6 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
 
     "baseUrl": ".",
     "paths": {
