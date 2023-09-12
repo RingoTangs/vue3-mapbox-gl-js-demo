@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type IconProps, resolveUrl, BASE_URL } from './icon'
+import { type IconProps, resolveUrl, BASE_URL } from './icon.ts'
 const props = withDefaults(defineProps<IconProps>(), {
     url: BASE_URL,
     width: 50,
