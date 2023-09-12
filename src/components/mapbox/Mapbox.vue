@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { type Props, useMapboxInit } from './mapbox.ts'
 import { provideMap } from './context.ts'
 import mapboxgl from 'mapbox-gl'
 
-// IDE BUG
+// WebStorm IDE BUG
 // https://stackoverflow.com/questions/76313288/error-when-using-both-withdefaults-and-defineprops-in-script-setup-in-vite-v
 // const props = withDefaults(defineProps<Props>(), { initFog: true })
 const props = defineProps<Props>()
-const emits = defineEmits<{ mapCreated: (map: mapboxgl.Map) => void }>()
+const emits = defineEmits<{ (e: 'mapCreated', map: mapboxgl.Map): void }>()
 
 const { map, container } = useMapboxInit(props)
 
