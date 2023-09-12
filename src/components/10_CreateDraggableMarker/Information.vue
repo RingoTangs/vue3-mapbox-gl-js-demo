@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type InformationProps } from './information'
+import { type InformationProps } from './information.ts'
 
 const props = withDefaults(defineProps<InformationProps>(), {
     longitude: 10,
