@@ -3,10 +3,21 @@ import { useMap } from '@/components/mapbox/context.ts'
 import { useCoordinates } from './realtime.ts'
 import { getLocation } from '@/components/18_AddLiveRealtimeData/fetch.ts'
 import { GeoJSONSource } from 'mapbox-gl'
+import { onBeforeUnmount } from 'vue'
 
 const map = useMap()
 const { setCoordinates } = useCoordinates(map)
-map.on('style.load', () => {
+
+let timeId = null
+
+onBeforeUnmount(() => {
+    clearInterval(timeId)
+    map.removeLayer('iss').removeSource('iss')
+})
+
+console.log(1111)
+
+const fn = () => {
     map.addSource('iss', { type: 'geojson' })
     // Add the rocket symbol layer to the map.
     map.addLayer({
@@ -23,10 +34,16 @@ map.on('style.load', () => {
         },
     })
 
-    setInterval(async () => {
+    timeId = setInterval(async () => {
         const geoJson = await getLocation()
         ;(map.getSource('iss') as GeoJSONSource).setData(geoJson)
         setCoordinates(geoJson)
     }, 2000)
-})
+}
+
+if (map.isStyleLoaded()) {
+    fn()
+} else {
+    map.on('style.load', fn)
+}
 </script>

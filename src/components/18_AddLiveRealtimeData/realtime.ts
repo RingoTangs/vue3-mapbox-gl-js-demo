@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, onBeforeUnmount } from 'vue'
 import { getLocation, GetLocationResponse } from './fetch'
 import mapboxgl from 'mapbox-gl'
 
@@ -12,14 +12,16 @@ const useCoordinates = (map: mapboxgl.Map) => {
 
     getLocation().then(setCoordinates)
 
-    watchEffect(() => {
-        console.log(coordinatesRef.value)
+    const stop = watchEffect(() => {
+        // console.log(coordinatesRef.value)
         map.flyTo({
             center: coordinatesRef.value as [number, number],
             speed: 0.5,
             zoom: 5,
         })
     })
+
+    onBeforeUnmount(() => stop())
 
     return { coordinatesRef, setCoordinates }
 }
