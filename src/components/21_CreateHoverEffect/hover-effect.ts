@@ -15,10 +15,18 @@ const addLayers = (map: mapboxgl.Map) => {
         source: US_STATES_GEO_JSON_SOURCE_ID,
         paint: {
             'fill-color': '#627BC1',
+            // case 语法：["case",
+            //     condition: boolean, output: OutputType,
+            //     condition: boolean, output: OutputType,
+            //     ...,
+            //     fallback: OutputType
+            // ]: OutputType
+            // feature-state 语法：["feature-state", string]: value
+            // boolean 语法：["boolean", value, fallback: value, fallback: value, ...]: boolean
+            // prettier-ignore
             'fill-opacity': [
                 'case',
-                ['boolean', ['feature-state', 'hover'], false],
-                1,
+                ['boolean', ['feature-state', 'hover'], false], 1,
                 0.5,
             ],
         },
@@ -27,9 +35,13 @@ const addLayers = (map: mapboxgl.Map) => {
         id: US_STATES_BORDER_LAYER_ID,
         type: 'line',
         source: US_STATES_GEO_JSON_SOURCE_ID,
-        layout: {},
         paint: {
             'line-color': '#627BC1',
+            // 'line-color': [
+            //     'case',
+            //     ['boolean', ['feature-state', 'hover'], false], 'red',
+            //     '#627BC1'
+            // ],
             'line-width': 2,
         },
     })
