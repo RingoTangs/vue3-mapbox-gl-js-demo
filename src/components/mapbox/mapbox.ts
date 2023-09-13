@@ -16,8 +16,17 @@ type NavigationControlOptions = {
     position?: ControlPosition
 }
 type FullScreenControlOptions = { position: ControlPosition }
+
+/**
+ * Mapbox 组件的属性
+ */
 type Props = {
     options?: MapboxOptions
+
+    /**
+     * zoom 优先级高于 options.zoom
+     */
+    zoom?: number
     initFog?: boolean
     navCtr?: boolean | NavigationControlOptions
     fullScreenCtr?: boolean | FullScreenControlOptions
@@ -61,6 +70,16 @@ const addNavigationControl = (
         map.addControl(new NavigationControl(options), options.position)
 }
 
+const adjustZoom = (map: mapboxgl.Map, zoom: number) => {
+    if (!zoom) return
+    const maxZoom = map.getMaxZoom()
+    const minZoom = map.getMinZoom()
+    if (zoom < minZoom) zoom = minZoom
+    if (zoom > maxZoom) zoom = maxZoom
+    // console.log('maxZoom: ', maxZoom, '---', 'minZoom: ', minZoom)
+    map.setZoom(zoom)
+}
+
 // 初始化 map 实例
 const useMapboxInit = (props: Props) => {
     const container = document.createElement('div')
@@ -73,6 +92,8 @@ const useMapboxInit = (props: Props) => {
             ? { container, ...props.options }
             : { container, ...defaultOption }
     )
+
+    adjustZoom(map, props.zoom)
 
     if (props.initFog) {
         map.on('styledata', () => map.setFog(defaultFog))
