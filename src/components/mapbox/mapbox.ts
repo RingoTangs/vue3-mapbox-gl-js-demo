@@ -96,7 +96,7 @@ const useMapboxInit = (props: Props) => {
     adjustZoom(map, props.zoom)
 
     if (props.initFog) {
-        map.on('styledata', () => map.setFog(defaultFog))
+        map.on('style.load', () => map.setFog(defaultFog))
     }
 
     addNavigationControl(map, props.navCtr)
