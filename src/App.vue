@@ -2,7 +2,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 // import FirstMap from '@/components/01_FirstMap.vue'
 // import AtmosphereStyle from '@/components/02_AtmosphereStyle.vue'
-// import DrawPloygon from '@/components/03_DrawPloygon.vue'
+import CreateMapbox from '@/components/03_CreateMapbox.vue'
 // import MapOptions from "@/components/04_MapOptions.vue"
 // import InteractionHandlers from '@/components/05_InteractionHandlers.vue'
 // import AddController from '@/components/06_AddController.vue'
@@ -14,24 +14,40 @@
 // import DisplayPopupOnHover from '@/components/12_DisplayPopupOnHover/Index.vue'
 // import MyControl from '@/components/13_MyControl/Index.vue'
 // import AttachPopupToMarker from '@/components/14_AttachPopupToMarker/Index.vue'
-import ScaleControl from '@/components/15_ScaleControl/Index.vue'
+// import ScaleControl from '@/components/15_ScaleControl/Index.vue'
+// import GeoLocateControl from '@/components/16_GeoLocateControl/Index.vue'
+// import ShowAndHiddenLayers from '@/components/17_ShowAndHiddenLayers/Index.vue'
+// import MapboxTest from '@/components/mapbox/MapboxTest.vue'
+// import MapTemplate2 from './MapTemplate2.vue'
+// import AddLiveRealtimeData from '@/components/18_AddLiveRealtimeData/Index.vue'
+// import AddHillShading from '@/components/19_AddHillShading/Index.vue'
+// import CreateDraggablePoint from '@/components/20_CreateDraggablePoint/Index.vue'
+// import CreateHoverEffect from '@/components/21_CreateHoverEffect/Index.vue'
 </script>
 
 <template>
     <!-- <HelloWorld /> -->
     <!-- <FirstMap /> -->
     <!-- <AtmosphereStyle /> -->
-    <!-- <DrawPloygon /> -->
+    <CreateMapbox />
     <!-- <MapOptions /> -->
     <!-- <InteractionHandlers /> -->
     <!-- <AddController /> -->
     <!-- <UseMapboxTest /> -->
     <!-- <Add3DTerrain /> -->
-    <!-- <AddCustomIconsWithMarkers/> -->
+    <!--     <AddCustomIconsWithMarkers/> -->
     <!-- <CreateDraggableMarker /> -->
     <!-- <DisplayPopup /> -->
     <!-- <DisplayPopupOnHover /> -->
     <!-- <MyControl /> -->
     <!-- <AttachPopupToMarker /> -->
-    <ScaleControl />
+    <!--    <ScaleControl />-->
+    <!--    <GeoLocateControl />-->
+    <!--    <ShowAndHiddenLayers />-->
+    <!--    <MapboxTest />-->
+    <!--    <MapTemplate2 />-->
+    <!--    <AddLiveRealtimeData />-->
+    <!--    <AddHillShading />-->
+    <!--    <CreateDraggablePoint />-->
+    <!--    <CreateHoverEffect />-->
 </template>
