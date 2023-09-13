@@ -2,7 +2,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 // import FirstMap from '@/components/01_FirstMap.vue'
 // import AtmosphereStyle from '@/components/02_AtmosphereStyle.vue'
-import CreateMapbox from '@/components/03_CreateMapbox.vue'
+// import CreateMapbox from '@/components/03_CreateMapbox.vue'
 // import MapOptions from "@/components/04_MapOptions.vue"
 // import InteractionHandlers from '@/components/05_InteractionHandlers.vue'
 // import AddController from '@/components/06_AddController.vue'
@@ -23,13 +23,14 @@ import CreateMapbox from '@/components/03_CreateMapbox.vue'
 // import AddHillShading from '@/components/19_AddHillShading/Index.vue'
 // import CreateDraggablePoint from '@/components/20_CreateDraggablePoint/Index.vue'
 // import CreateHoverEffect from '@/components/21_CreateHoverEffect/Index.vue'
+import LifecycleTest from '@/components/22_LifecycleTest/Index.vue'
 </script>
 
 <template>
     <!-- <HelloWorld /> -->
     <!-- <FirstMap /> -->
     <!-- <AtmosphereStyle /> -->
-    <CreateMapbox />
+    <!--    <CreateMapbox />-->
     <!-- <MapOptions /> -->
     <!-- <InteractionHandlers /> -->
     <!-- <AddController /> -->
@@ -50,4 +51,5 @@ import CreateMapbox from '@/components/03_CreateMapbox.vue'
     <!--    <AddHillShading />-->
     <!--    <CreateDraggablePoint />-->
     <!--    <CreateHoverEffect />-->
+    <LifecycleTest />
 </template>
