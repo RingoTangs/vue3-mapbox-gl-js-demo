@@ -115,6 +115,16 @@ const adjustZoom = (map: mapboxgl.Map, maybeReffedZoom: MaybeRef<number>) => {
     })
 }
 
+const adjustFog = (
+    map: mapboxgl.Map,
+    maybeReffedInitFog: MaybeRef<boolean>
+) => {
+    const mapboxFog = map.getFog()
+    watchEffect(() =>
+        map.setFog(unref(maybeReffedInitFog) ? defaultFog : mapboxFog)
+    )
+}
+
 // 初始化 map 实例
 const useMapboxInit = (props: Props) => {
     const container = document.createElement('div')
@@ -131,12 +141,10 @@ const useMapboxInit = (props: Props) => {
     adjustCenter(map, toRef(props, 'center'))
     adjustZoom(map, toRef(props, 'zoom'))
 
-    if (props.initFog) {
-        map.on('style.load', () => map.setFog(defaultFog))
-    }
-
     addNavigationControl(map, toRef(props, 'navCtr'))
     addFullScreenControl(map, toRef(props, 'fullScreenCtr'))
+
+    map.on('style.load', () => adjustFog(map, toRef(props, 'initFog')))
 
     return { map, container }
 }
