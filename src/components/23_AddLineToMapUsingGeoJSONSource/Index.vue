@@ -1,3 +1,5 @@
+<!-- https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/ -->
+
 <script setup lang="ts">
 import Mapbox from '@/components/mapbox/Mapbox.vue'
 import AddLine from './AddLine.vue'
