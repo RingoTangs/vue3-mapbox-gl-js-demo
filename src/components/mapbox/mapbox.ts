@@ -1,5 +1,5 @@
 import mapboxgl from 'mapbox-gl'
-import { NavigationControl, FullscreenControl } from 'mapbox-gl'
+import { NavigationControl, FullscreenControl, LngLatLike } from 'mapbox-gl'
 import { MaybeRef, toRef, unref, watchEffect } from 'vue'
 
 // 设置 mapboxgl 全局 access token
@@ -26,10 +26,8 @@ type FullScreenControlOptions = { position: ControlPosition } | boolean
 type Props = {
     options?: MapboxOptions
 
-    /**
-     * zoom 优先级高于 options.zoom
-     */
-    zoom?: number
+    zoom?: number // zoom 优先级高于 options.zoom
+    center?: LngLatLike // center 优先级高于 options.center
     initFog?: boolean
     navCtr?: NavigationControlOptions
     fullScreenCtr?: FullScreenControlOptions
@@ -92,6 +90,17 @@ const addNavigationControl = (
     })
 }
 
+const adjustCenter = (
+    map: mapboxgl.Map,
+    maybeReffedCenter: MaybeRef<LngLatLike>
+) => {
+    watchEffect(() => {
+        const center = unref(maybeReffedCenter)
+        if (!center) return
+        map.setCenter(center)
+    })
+}
+
 const adjustZoom = (map: mapboxgl.Map, maybeReffedZoom: MaybeRef<number>) => {
     watchEffect(() => {
         let zoom = unref(maybeReffedZoom)
@@ -119,6 +128,7 @@ const useMapboxInit = (props: Props) => {
             : { container, ...defaultOption }
     )
 
+    adjustCenter(map, toRef(props, 'center'))
     adjustZoom(map, toRef(props, 'zoom'))
 
     if (props.initFog) {
