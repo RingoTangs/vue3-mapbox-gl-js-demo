@@ -110,7 +110,7 @@ const adjustZoom = (map: mapboxgl.Map, maybeReffedZoom: MaybeRef<number>) => {
             if (zoom < minZoom) zoom = minZoom
             if (zoom > maxZoom) zoom = maxZoom
             // console.log('maxZoom: ', maxZoom, '---', 'minZoom: ', minZoom)
-            watchEffect(() => map.setZoom(zoom))
+            map.setZoom(zoom)
         }
     })
 }
