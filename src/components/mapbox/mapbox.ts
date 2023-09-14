@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl'
 import { NavigationControl, FullscreenControl } from 'mapbox-gl'
+import { MaybeRef, toRef, unref, watchEffect } from 'vue'
 
 // 设置 mapboxgl 全局 access token
 const ACCESS_TOKEN =
@@ -9,13 +10,15 @@ mapboxgl.accessToken = ACCESS_TOKEN
 // 定义 Mapbox 组件传入的属性
 type MapboxOptions = Omit<mapboxgl.MapboxOptions, 'container'>
 type ControlPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-type NavigationControlOptions = {
-    showCompass?: boolean
-    showZoom?: boolean
-    visualizePitch?: boolean
-    position?: ControlPosition
-}
-type FullScreenControlOptions = { position: ControlPosition }
+type NavigationControlOptions =
+    | {
+          showCompass?: boolean
+          showZoom?: boolean
+          visualizePitch?: boolean
+          position?: ControlPosition
+      }
+    | boolean
+type FullScreenControlOptions = { position: ControlPosition } | boolean
 
 /**
  * Mapbox 组件的属性
@@ -48,36 +51,59 @@ const defaultFog: mapboxgl.Fog = {
 
 const addFullScreenControl = (
     map: mapboxgl.Map,
-    options: boolean | FullScreenControlOptions
+    maybeReffedOptions: MaybeRef<FullScreenControlOptions>
 ) => {
-    options &&
-        typeof options === 'boolean' &&
-        map.addControl(new FullscreenControl())
-    options &&
-        typeof options === 'object' &&
-        map.addControl(new FullscreenControl(), options.position)
+    let fullscreenControl: FullscreenControl = null
+    const removeControl = () =>
+        fullscreenControl && map.removeControl(fullscreenControl)
+
+    watchEffect(() => {
+        const options = unref(maybeReffedOptions)
+        removeControl()
+        if (options !== false) {
+            fullscreenControl = new FullscreenControl()
+            if (options === true) {
+                map.addControl(fullscreenControl)
+            } else if (typeof options === 'object') {
+                map.addControl(fullscreenControl, options.position)
+            }
+        }
+    })
 }
 
 const addNavigationControl = (
     map: mapboxgl.Map,
-    options: boolean | NavigationControlOptions
+    options: MaybeRef<NavigationControlOptions>
 ) => {
-    options &&
-        typeof options === 'boolean' &&
-        map.addControl(new NavigationControl())
-    options &&
-        typeof options === 'object' &&
-        map.addControl(new NavigationControl(options), options.position)
+    let navigationControl: NavigationControl = null
+    const removeControl = () =>
+        navigationControl && map.removeControl(navigationControl)
+
+    watchEffect(() => {
+        const opts = unref(options)
+        removeControl()
+        if (opts === true) {
+            navigationControl = new NavigationControl()
+            map.addControl(navigationControl)
+        } else if (typeof opts === 'object') {
+            navigationControl = new NavigationControl(opts)
+            map.addControl(navigationControl, opts.position)
+        }
+    })
 }
 
-const adjustZoom = (map: mapboxgl.Map, zoom: number) => {
-    if (!zoom) return
-    const maxZoom = map.getMaxZoom()
-    const minZoom = map.getMinZoom()
-    if (zoom < minZoom) zoom = minZoom
-    if (zoom > maxZoom) zoom = maxZoom
-    // console.log('maxZoom: ', maxZoom, '---', 'minZoom: ', minZoom)
-    map.setZoom(zoom)
+const adjustZoom = (map: mapboxgl.Map, maybeReffedZoom: MaybeRef<number>) => {
+    watchEffect(() => {
+        let zoom = unref(maybeReffedZoom)
+        if (zoom) {
+            const maxZoom = map.getMaxZoom()
+            const minZoom = map.getMinZoom()
+            if (zoom < minZoom) zoom = minZoom
+            if (zoom > maxZoom) zoom = maxZoom
+            // console.log('maxZoom: ', maxZoom, '---', 'minZoom: ', minZoom)
+            watchEffect(() => map.setZoom(zoom))
+        }
+    })
 }
 
 // 初始化 map 实例
@@ -93,16 +119,21 @@ const useMapboxInit = (props: Props) => {
             : { container, ...defaultOption }
     )
 
-    adjustZoom(map, props.zoom)
+    adjustZoom(map, toRef(props, 'zoom'))
 
     if (props.initFog) {
         map.on('style.load', () => map.setFog(defaultFog))
     }
 
-    addNavigationControl(map, props.navCtr)
-    addFullScreenControl(map, props.fullScreenCtr)
+    addNavigationControl(map, toRef(props, 'navCtr'))
+    addFullScreenControl(map, toRef(props, 'fullScreenCtr'))
 
     return { map, container }
 }
 
-export { type Props, useMapboxInit }
+export {
+    type Props,
+    type NavigationControlOptions,
+    type FullScreenControlOptions,
+    useMapboxInit,
+}
