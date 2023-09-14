@@ -31,8 +31,8 @@ type Props = {
      */
     zoom?: number
     initFog?: boolean
-    navCtr?: boolean | NavigationControlOptions
-    fullScreenCtr?: boolean | FullScreenControlOptions
+    navCtr?: NavigationControlOptions
+    fullScreenCtr?: FullScreenControlOptions
 }
 
 const defaultOption: MapboxOptions = {
