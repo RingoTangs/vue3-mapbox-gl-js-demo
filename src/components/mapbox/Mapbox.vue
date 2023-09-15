@@ -18,6 +18,8 @@ provideMap(map) // Mapbox 所有的子组件都可以在 setup 中使用 map
 
 const wrapperRef = ref<HTMLDivElement>()
 
+console.log(props)
+
 onMounted(() => {
     const firstChild = wrapperRef.value.firstChild
     wrapperRef.value.insertBefore(container, firstChild)
