@@ -113,3 +113,19 @@ export const adjustFog = (
         map.setFog(unref(maybeReffedInitFog) ? defaultFog : mapboxFog)
     )
 }
+
+/**
+ * 设置 Bearing 属性（地图的初始方位）
+ */
+export const adjustBearing = (
+    map: mapboxgl.Map,
+    maybeReffedBearing: MaybeRef<number>
+) => {
+    console.log('maybeReffedBearing:', maybeReffedBearing)
+    watchEffect(() => {
+        const bearing = unref(maybeReffedBearing)
+        if (bearing) {
+            map.setBearing(bearing)
+        }
+    })
+}
