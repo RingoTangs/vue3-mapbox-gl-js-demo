@@ -8,6 +8,8 @@ const zoomRef = ref(1)
 const centerRef = ref([115, 37])
 const enableNavCtrRef = ref(true)
 const enableFullScreenCtrRef = ref(true)
+const bearingRef = ref(0)
+const pitchRef = ref(0)
 </script>
 
 <template>
@@ -20,6 +22,8 @@ const enableFullScreenCtrRef = ref(true)
                 :center="centerRef"
                 :nav-ctr="enableNavCtrRef"
                 :full-screen-ctr="enableFullScreenCtrRef"
+                :bearing="bearingRef"
+                :pitch="pitchRef"
             />
             <MapboxContextHolderTest />
         </div>
@@ -77,6 +81,7 @@ const enableFullScreenCtrRef = ref(true)
                 />
             </section>
 
+            <!-- Full Screen Control -->
             <section>
                 <label for="full-screen-ctr-switch">
                     Enable Full Screen Control
@@ -86,6 +91,32 @@ const enableFullScreenCtrRef = ref(true)
                     type="checkbox"
                     v-model="enableFullScreenCtrRef"
                 />
+            </section>
+
+            <!-- Bearing -->
+            <section>
+                <label for="set-bearing">Set Bearing</label>
+                <input
+                    id="set-bearing"
+                    type="range"
+                    min="0"
+                    max="100"
+                    v-model.number="bearingRef"
+                />
+                {{ bearingRef }}
+            </section>
+
+            <!-- Pitch -->
+            <section>
+                <label for="set-pitch">Set Pitch</label>
+                <input
+                    id="set-pitch"
+                    type="range"
+                    min="0"
+                    max="100"
+                    v-model.number="pitchRef"
+                />
+                {{ pitchRef }}
             </section>
         </div>
     </div>
@@ -102,6 +133,12 @@ const enableFullScreenCtrRef = ref(true)
 
 .mapbox-wrapper {
     flex: auto;
+}
+
+.operates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .operates > section {
