@@ -14,6 +14,7 @@ import {
     addFullScreenControl,
     addNavigationControl,
     adjustBearing,
+    adjustPitch,
 } from './actions.ts'
 
 /**
@@ -26,6 +27,7 @@ export type Props = {
     zoom?: number // zoom 优先级高于 options.zoom
     center?: LngLatLike // center 优先级高于 options.center
     bearing?: number // bearing 优先级高于 options.bearing
+    pitch?: number // pitch 优先级高于 options.pitch
     initFog?: boolean
     navCtr?: NavigationControlOptions
     fullScreenCtr?: FullScreenControlOptions
@@ -68,6 +70,7 @@ export const useMapboxInit = (
     addFullScreenControl(map, toRef(props, 'fullScreenCtr'))
 
     adjustBearing(map, toRef(props, 'bearing'))
+    adjustPitch(map, toRef(props, 'pitch'))
 
     map.on('style.load', () => adjustFog(map, toRef(props, 'initFog')))
 

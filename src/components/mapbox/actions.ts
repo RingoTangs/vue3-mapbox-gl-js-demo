@@ -129,3 +129,22 @@ export const adjustBearing = (
         }
     })
 }
+
+/**
+ * 调整俯仰角（倾斜角）
+ */
+export const adjustPitch = (
+    map: mapboxgl.Map,
+    maybeReffedBearing: MaybeRef<number>
+) => {
+    watchEffect(() => {
+        let pitch = unref(maybeReffedBearing)
+        if (pitch) {
+            const maxPitch = map.getMaxPitch()
+            const minPitch = map.getMinPitch()
+            if (pitch > maxPitch) pitch = maxPitch
+            if (pitch < minPitch) pitch = minPitch
+            map.setPitch(pitch)
+        }
+    })
+}
