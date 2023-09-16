@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, getCurrentInstance } from 'vue'
 import { type Props, useMapboxInit } from './mapbox.ts'
 import { provideMap } from './context.ts'
 import mapboxgl from 'mapbox-gl'
@@ -8,9 +8,12 @@ import mapboxgl from 'mapbox-gl'
 // https://stackoverflow.com/questions/76313288/error-when-using-both-withdefaults-and-defineprops-in-script-setup-in-vite-v
 // const props = withDefaults(defineProps<Props>(), { initFog: true })
 const props = defineProps<Props>()
-const emits = defineEmits<{ (e: 'mapCreated', map: mapboxgl.Map): void }>()
+const emits = defineEmits<{
+    (e: 'mapCreated', map: mapboxgl.Map): void
+    (e: 'update:zoom', value: number)
+}>()
 
-const { map, container } = useMapboxInit(props)
+const { map, container } = useMapboxInit(props, getCurrentInstance())
 
 emits('mapCreated', map) // 父组件可以获取 map
 defineExpose({ map }) // 父组件可以使用 ref 获取 map
@@ -18,7 +21,7 @@ provideMap(map) // Mapbox 所有的子组件都可以在 setup 中使用 map
 
 const wrapperRef = ref<HTMLDivElement>()
 
-console.log(props)
+// console.log(props)
 
 onMounted(() => {
     const firstChild = wrapperRef.value.firstChild
