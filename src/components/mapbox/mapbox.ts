@@ -1,6 +1,6 @@
 import { mapboxgl } from './config.ts'
 import { type LngLatLike } from 'mapbox-gl'
-import { toRef } from 'vue'
+import { toRef, type ComponentInternalInstance } from 'vue'
 import type {
     Options,
     NavigationControlOptions,
@@ -38,7 +38,10 @@ const defaultOption: Options = {
 /**
  * 在 Vue 组件中初始化 Map 实例
  */
-export const useMapboxInit = (props: Props) => {
+export const useMapboxInit = (
+    props: Props,
+    currentInstance: ComponentInternalInstance
+) => {
     const container = document.createElement('div')
     container.classList.add('mapbox-container')
     container.style.width = '100%'
@@ -50,7 +53,11 @@ export const useMapboxInit = (props: Props) => {
             : { container, ...defaultOption }
     )
 
-    map.properties = {}
+    // 初始化 map.properties 属性
+    // 将 Mapbox 组件实例添加到 map.properties 中
+    // console.log(currentInstance)
+    const { proxy } = currentInstance
+    map.properties = { vc: proxy }
 
     adjustCenter(map, toRef(props, 'center'))
     adjustZoom(map, toRef(props, 'zoom'))
