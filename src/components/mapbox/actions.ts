@@ -121,7 +121,7 @@ export const adjustBearing = (
     map: mapboxgl.Map,
     maybeReffedBearing: MaybeRef<number>
 ) => {
-    console.log('maybeReffedBearing:', maybeReffedBearing)
+    // console.log('maybeReffedBearing:', maybeReffedBearing)
     watchEffect(() => {
         const bearing = unref(maybeReffedBearing)
         if (bearing) {
