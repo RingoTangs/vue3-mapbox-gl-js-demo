@@ -76,16 +76,25 @@ export const adjustZoom = (
     map: mapboxgl.Map,
     maybeReffedZoom: MaybeRef<number>
 ) => {
+    let zoomedType: 'external' | 'internal' = 'internal'
     watchEffect(() => {
         let zoom = unref(maybeReffedZoom)
         if (zoom) {
+            zoomedType = 'external'
             const maxZoom = map.getMaxZoom()
             const minZoom = map.getMinZoom()
             if (zoom < minZoom) zoom = minZoom
             if (zoom > maxZoom) zoom = maxZoom
-            // console.log('maxZoom: ', maxZoom, '---', 'minZoom: ', minZoom)
-            map.setZoom(zoom)
+            map.zoomTo(zoom)
         }
+    })
+    map.on('wheel', () => (zoomedType = 'internal'))
+    map.on('dblclick', () => (zoomedType = 'internal'))
+    map.on('boxzoomend', () => (zoomedType = 'internal'))
+    map.on('zoomend', () => {
+        if (zoomedType === 'external') return
+        // console.log('zoom')
+        map.properties.vc.$emit('update:zoom', map.getZoom())
     })
 }
 
