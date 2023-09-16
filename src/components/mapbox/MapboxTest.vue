@@ -24,7 +24,8 @@ const pitchRef = ref(0)
                 :full-screen-ctr="enableFullScreenCtrRef"
                 :bearing="bearingRef"
                 :pitch="pitchRef"
-            />
+            >
+            </Mapbox>
             <MapboxContextHolderTest />
         </div>
         <div class="operates">
