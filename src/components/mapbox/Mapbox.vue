@@ -31,13 +31,13 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="wrapper" ref="wrapperRef">
+    <div class="mapbox-container_wrapper" ref="wrapperRef">
         <slot></slot>
     </div>
 </template>
 
 <style scoped>
-.wrapper {
+.mapbox-container_wrapper {
     width: 100%;
     height: 100%;
 }
