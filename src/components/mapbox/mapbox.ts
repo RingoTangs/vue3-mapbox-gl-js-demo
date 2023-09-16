@@ -50,6 +50,8 @@ export const useMapboxInit = (props: Props) => {
             : { container, ...defaultOption }
     )
 
+    map.properties = {}
+
     adjustCenter(map, toRef(props, 'center'))
     adjustZoom(map, toRef(props, 'zoom'))
 
