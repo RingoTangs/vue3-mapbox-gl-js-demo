@@ -123,3 +123,56 @@ position 就是数字数组。必须有两个或者更多的元素。前两个�
 F(lon, lat) = (lon0 + (lon1 - lon0) * t, lat0 + (lat1 - lat0) * t) 
 ```
 
+### 3.1.2. Point
+
+对于 "Point" 类型，"coordinates" 属性是单个 position。
+
+
+
+### 3.1.3. MultiPoint
+
+对于 "MultiPoint" 类型，"coordinates" 属性是 position 数组。
+
+
+
+### 3.1.4. LineString
+
+对于 "LineString" 类型，"coordinates" 属性是两个或者多个位置的数组。
+
+
+
+### 3.1.5. MultiLineString
+
+对于 "MultiLineString" 类型，"coordinates" 属性是LineString 左边数组的数组。
+
+
+
+### 3.1.6. Polygon
+
+要指定特定于Polygon的约束，引入线性环很有用。
+
+1. 线性环是具有四个或者更多位置的闭合 LineString。
+2. 第一个和最后一个值是等效的，并且他们必须包含相同值，他们的表示也应该是相同的。
+3. 线性环是表面的边界或者表面中孔的边界。
+4. 线性环必须遵循边界区域的右手定则，即外环是逆时针方向，孔是顺时针方向。
+
+尽管线性环没有明确表示为 GeoJSON 的 geometry type，但是它引导了 Polygon 几何类型定义的规范表述，如下所示：
+
+1. 对于 "Polygon" type，"coordinates" 属性必须是线性环坐标数组。
+2. 对于具有多个环的 Polygon，第一个必须是外环，其他任何环必须是内环，外环界定表面，内环（如果存在）界定地面上的孔。
+
+
+
+### 3.1.7. MultiPolygon
+
+对于 "MultiPolygon" 类型，"coordinates" 属性是 Polygon coordinates 数组的数组。
+
+
+
+### 3.1.8. GeometryCollection
+
+"GeometryCollection" 类型的 GeoJSON 对象是 Geometry 对象。
+
+GeometryCollection 有一个名为 "geometries" 的属性，"geometries" 的值是一个数组，该数组的每个元素都是 GeoJSON Geometry 对象。该数组有可能为空。
+
+与上述其他的几种 "geometry" types 不同，GeometryCollection 可以是较小的 Geometry 对象的异构组合。例如，字母 "i" 的形状可以由一个点和一个 LineString 组成。
