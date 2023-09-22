@@ -176,3 +176,86 @@ F(lon, lat) = (lon0 + (lon1 - lon0) * t, lat0 + (lat1 - lat0) * t)
 GeometryCollection 有一个名为 "geometries" 的属性，"geometries" 的值是一个数组，该数组的每个元素都是 GeoJSON Geometry 对象。该数组有可能为空。
 
 与上述其他的几种 "geometry" types 不同，GeometryCollection 可以是较小的 Geometry 对象的异构组合。例如，字母 "i" 的形状可以由一个点和一个 LineString 组成。
+
+GeometryCollections 与单一 Geometry type Object （Point、LineString、Polygon）和多部分Geometry Object（MultiPoint、MultiLineString和MultiPolygon）具有不同的语法，但是语义相同。
+
+尽管 GeometryCollection 对象没有 "coordinates" 属性，但是确实有坐标：所有部分的坐标都属于该集合。
+
+GeometryCollection 的 "geometries" 属性描述了该集合的各个部分。不应该对 "geometries" 数组添加额外的语义。
+
+注意：应该避免嵌套的 GeometryCollections。
+
+
+
+## 3.2. Feature Object
+
+Feature Object 代表空间上有边界的事物。每个Feature Object都是GeoJSON 对象，无论出现在GeoJSON文本的哪个位置。
+
+1. Feature Object 有一个 "type" 属性，其值为 "Feature"。
+2. Feature Object 有一个 "geometry" 属性。它的值为上面提过的 geometry object。或者在 Feature 未定的情况下，是 JSON null 值。
+3. Feature Object 有一个 "properties" 属性。它的值是个object。（JSON object 或者 JSON null value）。
+4. 如果 Feature 具有常用的标识符，Feature object具有名字为 "id" 的属性，它的值是JSON字符串或者数字。
+
+## 3.3. FeatureCollection Object
+
+"FeatureCollection" 对象具有一个名为"features"的属性。"features"的值是一个JSON数组。数组中的每个元素都是定义的Feature对象。该数组可以为空（empty）。
+
+
+
+# 4. Coordinate Reference System（坐标参考系）
+
+所有 GeoJSON 坐标的坐标参考系都是地理坐标参考系，使用 World Geodetic System 1984（WGS84）基准，经度和纬度单位为十进制。可选的第三位置元素应为 WGS84 参考椭球上方或下方的高度（以米为单位）。在没有高程值的情况下，对高度或深度敏感的应用程序应该将位置解释为当地地面或者海平面。
+
+
+
+# 5. Bounding Box
+
+GeoJSON可以有一个"bbox"属性，“bbox”的值必须是长度为 2n 的数组。其中 n 是所包含几何图形中表示的维数。
+
+bbox 二维：[最小经度、最小纬度、最大经度、最大纬度]
+
+ Example of a 2D bbox member on a Feature:
+
+```json
+{
+    "type": "Feature",
+    "bbox": [-10.0, -10.0, 10.0, 10.0],
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [-10.0, -10.0],
+                [10.0, -10.0],
+                [10.0, 10.0],
+                [-10.0, -10.0]
+            ]
+        ]
+    },
+    "properties": {}
+}
+```
+
+ Example of a 2D bbox member on a FeatureCollection:
+
+```json
+{
+    "type": "FeatureCollection",
+    "bbox": [100.0, 0.0, 105.0, 1.0],
+    "features": [
+        //...
+    ]
+}
+```
+
+Example of a 3D bbox member with a depth of 100 meters:
+
+```json
+{
+    "type": "FeatureCollection",
+    "bbox": [100.0, 0.0, -100.0, 105.0, 1.0, 0.0],
+    "features": [
+        //...
+    ]
+}
+```
+
