@@ -17,7 +17,7 @@
 // import ScaleControl from '@/components/15_ScaleControl/Index.vue'
 // import GeoLocateControl from '@/components/16_GeoLocateControl/Index.vue'
 // import ShowAndHiddenLayers from '@/components/17_ShowAndHiddenLayers/Index.vue'
-import MapboxTest from '@/components/mapbox/MapboxTest.vue'
+// import MapboxTest from '@/components/mapbox/MapboxTest.vue'
 // import MapTemplate2 from './MapTemplate2.vue'
 // import AddLiveRealtimeData from '@/components/18_AddLiveRealtimeData/Index.vue'
 // import AddHillShading from '@/components/19_AddHillShading/Index.vue'
@@ -26,6 +26,7 @@ import MapboxTest from '@/components/mapbox/MapboxTest.vue'
 // import LifecycleTest from '@/components/22_LifecycleTest/Index.vue'
 // import AddLineToMapUsingGeoJSONSource from '@/components/23_AddLineToMapUsingGeoJSONSource/Index.vue'
 // import MapboxCreatorTest from '@/components/24_MapboxCreatorTest/Index.vue'
+import DrawPolygonCalcuateArea from '@/components/24_DrawPolygonCalcuateArea/Index.vue'
 </script>
 
 <template>
@@ -47,7 +48,7 @@ import MapboxTest from '@/components/mapbox/MapboxTest.vue'
     <!--    <ScaleControl />-->
     <!--    <GeoLocateControl />-->
     <!--    <ShowAndHiddenLayers />-->
-    <MapboxTest />
+    <!-- <MapboxTest /> -->
     <!--    <MapTemplate2 />-->
     <!--    <AddLiveRealtimeData />-->
     <!--    <AddHillShading />-->
@@ -56,4 +57,5 @@ import MapboxTest from '@/components/mapbox/MapboxTest.vue'
     <!--    <LifecycleTest />-->
     <!--    <AddLineToMapUsingGeoJSONSource />-->
     <!--    <MapboxCreatorTest />-->
+    <DrawPolygonCalcuateArea />
 </template>
