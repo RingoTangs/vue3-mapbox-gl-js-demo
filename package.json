@@ -19,6 +19,7 @@
     "@mapbox/mapbox-gl-draw": "^1.4.2",
     "gsap": "^3.12.2",
     "mapbox-gl": "^2.15.0",
+    "threebox-plugin": "^2.2.7",
     "vue": "^3.3.4"
   },
   "devDependencies": {
