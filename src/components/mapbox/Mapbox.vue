@@ -10,7 +10,7 @@ import mapboxgl from 'mapbox-gl'
 const props = defineProps<Props>()
 const emits = defineEmits<{
     (e: 'mapCreated', map: mapboxgl.Map): void
-    (e: 'update:zoom', value: number)
+    (e: 'update:zoom', value: number): void
 }>()
 
 const { map, container } = useMapboxInit(props, getCurrentInstance())
