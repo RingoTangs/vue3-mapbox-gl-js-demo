@@ -28,7 +28,8 @@
 // import MapboxCreatorTest from '@/components/24_MapboxCreatorTest/Index.vue'
 // import DrawPolygonCalcuateArea from '@/components/24_DrawPolygonCalcuateArea/Index.vue'
 // import CustomModes from '@/components/25_CustomModes/Index.vue'
-import Add3DModelWithThreebox from '@/components/26_Add3DModelWithThreebox/Index.vue'
+// import Add3DModelWithThreebox from '@/components/26_Add3DModelWithThreebox/Index.vue'
+import ThreeboxBasic from '@/components/27_ThreeboxBasic/Index.vue'
 </script>
 
 <template>
@@ -61,5 +62,6 @@ import Add3DModelWithThreebox from '@/components/26_Add3DModelWithThreebox/Index
     <!--    <MapboxCreatorTest />-->
     <!-- <DrawPolygonCalcuateArea /> -->
     <!-- <CustomModes /> -->
-    <Add3DModelWithThreebox />
+    <!-- <Add3DModelWithThreebox /> -->
+    <ThreeboxBasic />
 </template>
