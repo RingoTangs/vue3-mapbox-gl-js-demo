@@ -18,6 +18,7 @@ export const createThreebox = (
             onAdd: (map, gl) => {
                 tb.value = window.tb = new Threebox(map, gl, options)
                 map.fire('threebox.init', { tb })
+                console.log('threebox 初始化成功！')
             },
             render: () => window.tb.update(),
         })

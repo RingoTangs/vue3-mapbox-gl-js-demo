@@ -1,39 +1,43 @@
 <script setup lang="ts">
 import { useMap } from '../mapbox/context'
-import { createThreebox } from '@/utils/threebox'
-// import { Threebox } from 'threebox-plugin'
+// import { createThreebox } from '@/utils/threebox'
+import { Threebox } from 'threebox-plugin'
 
 const map = useMap()
-
+map.setCenter([-122.434, 37.7353])
+map.setZoom(10)
 const origin = [-122.434, 37.7353, 1]
 
-const threebox = createThreebox(map, {
-    defaultLights: true,
-    enableSelectingObjects: true,
-    enableDraggingObjects: true,
-    enableRotatingObjects: true,
-})
+map.on('style.load', () => {
+    console.log('===style.load===')
+    map.addLayer({
+        id: 'custom_layer',
+        type: 'custom',
+        renderingMode: '3d',
+        onAdd: (_map, _gl) => {
+            const tb = (window.tb = new Threebox(_map, _gl, {
+                defaultLights: true,
+                enableSelectingObjects: true,
+            }))
 
-const addModel = () => {
-    threebox(() => {
-        const sphere = window.tb.sphere({
-            color: 'red',
-            material: 'MeshToonMaterial',
-            units: 'meters',
-            radius: 1,
-            anchor: 'center',
-        })
-
-        sphere.setCoords(origin)
-        sphere.set({ scale: 5, duration: 10000 })
-        // sphere.setAnchor('top')
-        console.log(sphere)
-        window.tb.add(sphere)
-        map.flyTo({ center: [-122.434, 37.7353], zoom: 17, pitch: 60 })
+            //instantiate a red sphere and position it at the origin lnglat
+            const sphere = tb
+                .sphere({
+                    color: 'red',
+                    material: 'MeshToonMaterial',
+                    units: 'meters',
+                    radius: 5000,
+                })
+                .setCoords(origin)
+            // add sphere to the scene
+            tb.add(sphere)
+            console.log(sphere)
+        },
+        render: () => window.tb.update(),
     })
-}
+})
 </script>
 
 <template>
-    <button type="button" @click="addModel">添加模型</button>
+    <p></p>
 </template>
