@@ -27,9 +27,9 @@
 // import AddLineToMapUsingGeoJSONSource from '@/components/23_AddLineToMapUsingGeoJSONSource/Index.vue'
 // import MapboxCreatorTest from '@/components/24_MapboxCreatorTest/Index.vue'
 // import DrawPolygonCalcuateArea from '@/components/24_DrawPolygonCalcuateArea/Index.vue'
-// import CustomModes from '@/components/25_CustomModes/Index.vue'
+import CustomModes from '@/components/25_CustomModes/Index.vue'
 // import Add3DModelWithThreebox from '@/components/26_Add3DModelWithThreebox/Index.vue'
-import ThreeboxBasic from '@/components/27_ThreeboxBasic/Index.vue'
+// import ThreeboxBasic from '@/components/27_ThreeboxBasic/Index.vue'
 </script>
 
 <template>
@@ -61,7 +61,7 @@ import ThreeboxBasic from '@/components/27_ThreeboxBasic/Index.vue'
     <!--    <AddLineToMapUsingGeoJSONSource />-->
     <!--    <MapboxCreatorTest />-->
     <!-- <DrawPolygonCalcuateArea /> -->
-    <!-- <CustomModes /> -->
+    <CustomModes />
     <!-- <Add3DModelWithThreebox /> -->
-    <ThreeboxBasic />
+    <!-- <ThreeboxBasic /> -->
 </template>
