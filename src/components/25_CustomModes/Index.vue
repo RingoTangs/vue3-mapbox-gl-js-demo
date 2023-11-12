@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import mapboxgl from 'mapbox-gl'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 
-import Mapbox from '@/components/mapbox/Mapbox.vue'
 import drawPointMode from './modes/draw-point'
 import drawLineStringMode from './modes/draw-line-string'
-import { ref } from 'vue'
+import drawPolygonMode from './modes/draw-polygon'
+
+import Mapbox from '@/components/mapbox/Mapbox.vue'
 
 let draw: MapboxDraw
 
@@ -16,12 +18,13 @@ const onMapCreated = (map: mapboxgl.Map) => {
         modes: {
             draw_point_mode: drawPointMode,
             draw_line_string_mode: drawLineStringMode,
+            draw_polygon_mode: drawPolygonMode,
             ...MapboxDraw.modes,
         },
         controls: {
             point: true,
             line_string: true,
-            polygon: false,
+            polygon: true,
             combine_features: false,
             uncombine_features: false,
             trash: true,
@@ -29,10 +32,7 @@ const onMapCreated = (map: mapboxgl.Map) => {
     })
     map.addControl(draw)
 
-    console.log(draw)
-
     map.on('draw.modechange', (e) => {
-        console.log('draw.modechange', e)
         mode.value = e.mode
     })
 }
@@ -46,6 +46,10 @@ const onMapCreated = (map: mapboxgl.Map) => {
         <!-- prettier-ignore -->
         <button type="button" @click="() => draw.changeMode('draw_line_string_mode')">
             Draw LineString
+        </button>
+        <!-- prettier-ignore -->
+        <button type="button" @click="() => draw.changeMode('draw_polygon_mode')">
+            Draw Polygon
         </button>
         <span>mode: {{ mode }}</span>
         <button type="button" @click="() => draw.trash()">Trash</button>
